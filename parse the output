@@ -1,0 +1,20 @@
+import re
+
+def extract_metrics(file_path):
+    with open(file_path, 'r') as file:
+        content = file.read()
+
+        latency_match = re.search(r'Average latency \(all\) = (\d+\.\d+)', content)
+        avg_latency = float(latency_match.group(1)) if latency_match else None
+
+        throughput_match = re.search(r'Overall average throughput = (\d+\.\d+)', content)
+        throughput = float(throughput_match.group(1)) if throughput_match else None
+
+        buffer_match = re.search(r'Buffer occupancy = (\d+\.\d+)', content)
+        buffer_occupancy = float(buffer_match.group(1)) if buffer_match else None
+
+    return avg_latency, throughput, buffer_occupancy
+
+caara_metrics = extract_metrics('output_caara.txt')
+
+print(f"CAARA Metrics: Latency = {caara_metrics[0]}, Throughput = {caara_metrics[1]}, Buffer Occupancy = {caara_metrics[2]}")
