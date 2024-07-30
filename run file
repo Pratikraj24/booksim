@@ -1,0 +1,1 @@
+./booksim ../noc_config_caara.cfg > output_caara.txt
